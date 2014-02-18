@@ -1,0 +1,16 @@
+task someTask << { println "Doing something!" }
+task otherTask << { println "Me first!" }
+task yetAnotherTask << { println "Or me first?" }
+
+someTask.dependsOn otherTask
+
+otherTask {	 dependsOn yetAnotherTask }
+
+task firstTask << { println "First!" }
+task secondTask << { println "Second!" }
+secondTask.mustRunAfter firstTask
+
+task integrationTest {
+	onlyIf { new Random().nextBoolean() }
+	doLast { println "Testing..." }
+}

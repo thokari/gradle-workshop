@@ -1,0 +1,18 @@
+def sessions = new File(sessionsDir)
+def examples = new File(examplesDir)
+
+if(sessions.exists()) {
+	sessions.eachDir {
+		if(!it.name.startsWith(".")) {
+			include ":sessions:${it.name}"
+		}
+	}
+}
+
+if(examples.exists()) {
+	examples.eachDir {
+		if(!it.name.startsWith(".")) {
+			include ":examples:${it.name}"
+		}
+	}
+}

@@ -1,0 +1,4 @@
+apply from: "plugins/info.gradle"
+
+apply plugin: "wrapper"
+apply plugin: "eclipse"

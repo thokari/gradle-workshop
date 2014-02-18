@@ -1,0 +1,9 @@
+task info {
+	group = "Script Plugin Example"
+	description = "Prints out the name of the project and applied plugins."
+    doLast {
+		println "\tProject name: ${project.name}"
+		println "\tApplied plugins:"
+		project.plugins.each { println "\t\t${it.class.simpleName}" }
+	}
+}

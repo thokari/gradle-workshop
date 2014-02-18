@@ -1,0 +1,16 @@
+task firstTask << {
+	println new Date()
+}
+
+task secondTask {
+	onlyIf { "${new Date()}".toUpperCase().startsWith("MON") }
+	doLast {
+		println project.name
+	}
+}
+
+firstTask.mustRunAfter secondTask
+
+task thirdTask {
+	dependsOn firstTask, secondTask
+}

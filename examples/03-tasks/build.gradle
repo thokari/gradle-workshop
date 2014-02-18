@@ -1,0 +1,7 @@
+task someTask << { println "I'm a Default Task!" }
+
+task otherTask {
+   doLast { println "Other task is executing!" }
+}
+
+someTask.doFirst { println "Do this first!" }

@@ -1,0 +1,16 @@
+apply plugin: "wrapper"
+apply plugin: "eclipse"
+
+subprojects { subproject ->
+	
+	subproject.apply plugin: "base"
+	
+	if(file("solution.gradle").exists()) {
+		task buildSolution(type: GradleBuild) {
+			buildFile = "solution.gradle"
+			if(project.hasProperty("solutionTasks")) {
+				tasks = solutionTasks.split(",")*.trim()
+			}
+		}
+	}
+}

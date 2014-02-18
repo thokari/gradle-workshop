@@ -1,0 +1,18 @@
+class VerboseCopy extends Copy {
+
+	@TaskAction
+	void printDestinationDirectory() {
+		def files = source.collect { it.name }.join("\n  ")
+		println " Source: \n  $files\n DestinationDir:\n  $destinationDir"
+	}
+}
+
+task myCustomCopy(type: VerboseCopy) {
+	from "source"
+	include "*"
+	exclude "README"
+	into buildDir
+	eachFile {
+		name = name - ".txt" + "-0.1.txt"
+	}
+}

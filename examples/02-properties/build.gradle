@@ -1,0 +1,10 @@
+println "\tname: " + name
+
+println "\texampleProp: " + exampleProp
+println "\text.exampleProp: " + ext.exampleProp
+
+ext {
+	otherProp = "overridden"
+}
+
+println "\totherProp: " + otherProp
