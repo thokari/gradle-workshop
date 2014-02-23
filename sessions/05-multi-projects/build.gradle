@@ -1,0 +1,11 @@
+// Make this project a java project
+// Make its compile configuration depend on the project returned by the method below
+// Create a task copyDeps that copies all dependencies into the build dir
+
+Project findJavaProject() {
+	try {
+		javaProject = project(":sessions:04-java-project")
+	} catch(e) {
+		javaProject = project(":04-java-project")
+	}
+}

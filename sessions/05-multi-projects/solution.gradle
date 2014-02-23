@@ -1,0 +1,18 @@
+apply plugin: "java"
+
+repositories { jcenter() }
+
+dependencies { compile findJavaProject() }
+
+task copyDeps(type: Copy) {
+	from configurations.compile
+	into buildDir
+}
+
+Project findJavaProject() {
+	try {
+		javaProject = project(":sessions:04-java-project")
+	} catch(e) {
+		javaProject = project(":04-java-project")
+	}
+}

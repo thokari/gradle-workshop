@@ -1,7 +1,7 @@
 def sessions = new File(sessionsDir)
 def examples = new File(examplesDir)
 
-if(sessions.exists()) {
+if(sessions.isDirectory()) {
 	sessions.eachDir {
 		if(!it.name.startsWith(".")) {
 			include ":sessions:${it.name}"
@@ -9,9 +9,9 @@ if(sessions.exists()) {
 	}
 }
 
-if(examples.exists()) {
+if(examples.isDirectory()) {
 	examples.eachDir {
-		if(!it.name.startsWith(".")) {
+		if(!it.name.startsWith(".") && !it.name.equals("01-groovy")) {
 			include ":examples:${it.name}"
 		}
 	}

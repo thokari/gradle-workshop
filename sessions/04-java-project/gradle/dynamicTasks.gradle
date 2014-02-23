@@ -1,0 +1,6 @@
+task classycle(description: "Runs the Classycle tool")
+
+// 1) Erzeuge dynamisch Tasks, um das Classycle Tool für jedes Source Set separat ausführen zu können
+// 2) Bei der Ausführung des "classycle" Tasks sollen alle generierten Tasks ausgeführt werden  
+
+// Code ab hier ...

@@ -1,0 +1,6 @@
+// 1. Create the custom task type VerboseCopy:
+//   - It extends Copy
+//   - It should print out the names of all files and the destination when copying.
+// 2. Create task of that type
+//   - copies all files, excluding README, from source to build directory
+//   - additionally, versions all files with 0.1 (before the .txt)

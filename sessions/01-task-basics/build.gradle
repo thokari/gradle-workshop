@@ -1,0 +1,5 @@
+// Create three tasks:
+// 1. The first task prints out the current date
+// 2. The seconds task prints the project name, but only executes on mondays
+// 3. The third task has no action, and forces execution of first and second tasks
+// 4. The first task must always run after the second task

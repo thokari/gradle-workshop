@@ -1,0 +1,5 @@
+// 1. Read the contents of the plugins/info.gradle file
+// 2. Apply it as a plugin
+// 3. Apply the plugins 'wrapper' and 'eclipse'
+// 4. Execute the 'tasks' task
+// 5. Execute the tasks that are created by the plugins.

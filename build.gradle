@@ -1,9 +1,9 @@
 apply plugin: "wrapper"
 apply plugin: "eclipse"
 
-subprojects { subproject ->
+subprojects {
 	
-	subproject.apply plugin: "base"
+	apply plugin: "base"
 	
 	if(file("solution.gradle").exists()) {
 		task buildSolution(type: GradleBuild) {
