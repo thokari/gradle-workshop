@@ -4,8 +4,8 @@
 
 Project findJavaProject() {
 	try {
-		javaProject = project(":sessions:04-java-project")
+		project(":sessions:04-java-project")
 	} catch(e) {
-		javaProject = project(":04-java-project")
+		project(":04-java-project")
 	}
 }
