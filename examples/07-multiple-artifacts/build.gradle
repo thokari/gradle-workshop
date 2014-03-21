@@ -27,20 +27,20 @@ outputArchives.each { outputArchive ->
 
 	// add archiving tasks
 	task("${outputArchive}Jar", type: Jar) { from configurations."${outputArchive}Compile" }
-
-	task("${outputArchive}SourceJar", type: Jar) {
-		from sourceSets."$outputArchive".java
-	}
+	task("${outputArchive}SourceJar", type: Jar) { from sourceSets."$outputArchive".java }
 
 	publishing {
-		publications { 
+		publications {
+			
+			// create a maven publication 
 			"$outputArchive"(MavenPublication) {
-				// publish the artifacts created by the jar tasks
+				
+				// override the artifact id, which defaults to the project name
 				artifactId = outputArchive
+				
+				// publish the artifacts created by the jar tasks
 				artifact tasks."${outputArchive}Jar"
-				artifact(tasks."${outputArchive}SourceJar") {
-					classifier 'source'
-				}
+				artifact(tasks."${outputArchive}SourceJar") { classifier 'source' }
 			}
 		}
 	}
@@ -57,4 +57,5 @@ publishing {
 
 // adding sourceSets automatically creates compile-, test- etc. configurations,
 // so we can use them to declare dependencies
+// we also have to do it after we declared sourceSets, which happens in above loop
 dependencies { firstCompile  'org.apache.commons:commons-collections4:4.0' }
