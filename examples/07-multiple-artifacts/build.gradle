@@ -1,0 +1,60 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+repositories { jcenter() }
+
+// these are the custom source sets, each producing its own artifact
+ext {
+	outputArchives = ['first', 'second', 'third']
+}
+
+group = 'de.thokari'
+version = '0.1'
+
+// stay groovy and dry ;)
+outputArchives.each { outputArchive ->
+
+	// declare the source set
+	sourceSets {
+		"$outputArchive" { java.srcDirs "src/${outputArchive}/java" }
+	}
+
+	// add the custom sourceSets to the eclipse classpath, by default the eclipse
+	// plugin only adds the compile configuration of the 'main' source set
+	eclipse {
+		classpath.plusConfigurations += configurations."${outputArchive}Compile"
+	}
+
+	// add archiving tasks
+	task("${outputArchive}Jar", type: Jar) { from configurations."${outputArchive}Compile" }
+
+	task("${outputArchive}SourceJar", type: Jar) {
+		from sourceSets."$outputArchive".java
+	}
+
+	publishing {
+		publications { 
+			"$outputArchive"(MavenPublication) {
+				// publish the artifacts created by the jar tasks
+				artifactId = outputArchive
+				artifact tasks."${outputArchive}Jar"
+				artifact(tasks."${outputArchive}SourceJar") {
+					classifier 'source'
+				}
+			}
+		}
+	}
+}
+
+publishing {
+	repositories {
+		maven {
+			name "LocalFile"
+			url "file:///$buildDir/repo"
+		}
+	}
+}
+
+// adding sourceSets automatically creates compile-, test- etc. configurations,
+// so we can use them to declare dependencies
+dependencies { firstCompile  'org.apache.commons:commons-collections4:4.0' }
