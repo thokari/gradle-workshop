@@ -1,0 +1,27 @@
+version = new Version(project)
+
+class Version {
+	
+	String majorMinorVersion
+	String patchVersion
+	boolean snapshot = false
+	String separator
+
+	public Version(project) {
+		majorMinorVersion = project.file("version.txt").text
+		def buildNrEnv = System.env["BUILD_NUMBER"]
+		def buildNrOffset = System.env["BUILD_NUMBER_OFFSET"]
+		if(buildNrEnv && buildNrOffset) {
+			patchVersion = "${(buildNrEnv as Integer) - (buildNrOffset as Integer)}"
+			separator = '.'
+		} else {
+			patchVersion = "SNAPSHOT"
+			snapshot = true
+			separator = '-'
+		}
+	}
+
+	public String toString() {
+		"$majorMinorVersion$separator$patchVersion"
+	}
+}
