@@ -1,9 +1,9 @@
-package my.company.first;
+package de.thokari.whoolyHats;
 
 import org.apache.commons.collections4.OrderedMap;
 import org.apache.commons.collections4.map.LinkedMap;
 
-public class FirstClass {
+public class SomeClass {
 
 	static {
 		OrderedMap<String, String> map = new LinkedMap<String, String>();

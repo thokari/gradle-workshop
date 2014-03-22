@@ -4,44 +4,61 @@ apply plugin: 'eclipse'
 
 repositories { jcenter() }
 
-// these are the custom source sets, each producing its own artifact
+
+// These are the custom source sets, each producing its own artifact.
+// The convention we will be using here is:
+//   - the artifact names are dash-separated
+//   - logical names (Gradle objects) are camel case
+//   - source directory names are camel case
 ext {
-	outputArchives = ['first', 'second', 'third']
+	outputArchives = [
+		'cats',
+		'spoons',
+		'oranges',
+		'wooly-hats'
+	]
 }
 
 group = 'de.thokari'
 version = '0.1'
 
-// stay groovy and dry ;)
+apply from: 'gradle/string-utils.groovy'
+
+// Stay groovy and dry ;)
 outputArchives.each { outputArchive ->
 
-	// declare the source set
-	sourceSets {
-		"$outputArchive" { java.srcDirs "src/${outputArchive}/java" }
-	}
+	String logicalName = outputArchive.camelCase()
 
-	// add the custom sourceSets to the eclipse classpath, by default the eclipse
-	// plugin only adds the compile configuration of the 'main' source set
+	// Create a source set by calling its name, and declaring it as java source.
+	sourceSets { "${logicalName}" { java } }
+
+	// By default, the eclipse plugin only adds the 'main' source set to the eclipse
+	// classpath, so we need to configure it.
 	eclipse {
-		classpath.plusConfigurations += configurations."${outputArchive}Compile"
+		classpath.plusConfigurations += configurations."${logicalName}Compile"
 	}
 
-	// add archiving tasks
-	task("${outputArchive}Jar", type: Jar) { from configurations."${outputArchive}Compile" }
-	task("${outputArchive}SourceJar", type: Jar) { from sourceSets."$outputArchive".java }
+	// Add archiving tasks.
+	// These could be anything with type AbstractArchiveTask (e.g. War, Zip).
+	task("${logicalName}Jar", type: Jar) { from configurations."${logicalName}Compile" }
+	task("${logicalName}SourceJar", type: Jar) { from sourceSets."${logicalName}".java }
 
+	// Configure the publishing extension added by the 'maven-publish' plugin.
+	// For every combination of publication and repository, a task with name
+	// publish<publicationName>PublicationTo<repositoryName>Repository is created.
+	// The task 'publish' is a shortcut, depending on each one of them.
 	publishing {
 		publications {
-			
-			// create a maven publication 
-			"$outputArchive"(MavenPublication) {
-				
-				// override the artifact id, which defaults to the project name
-				artifactId = outputArchive
-				
-				// publish the artifacts created by the jar tasks
-				artifact tasks."${outputArchive}Jar"
-				artifact(tasks."${outputArchive}SourceJar") { classifier 'source' }
+
+			// Create a publication by calling its name and type.
+			"${logicalName}"(MavenPublication) {
+
+				// Override the artifact id, which defaults to the project name.
+				artifactId = outputArchive.dashSeparated()
+
+				// Publish the artifacts created by the archiving tasks.
+				artifact tasks."${logicalName}Jar"
+				artifact(tasks."${logicalName}SourceJar") { classifier 'source' }
 			}
 		}
 	}
@@ -50,13 +67,30 @@ outputArchives.each { outputArchive ->
 publishing {
 	repositories {
 		maven {
-			name "LocalFile"
+			name 'LocalFile'
 			url "file:///$buildDir/repo"
 		}
 	}
 }
 
-// adding sourceSets automatically creates compile-, test- etc. configurations,
-// so we can use them to declare dependencies
-// we also have to do it after we declared sourceSets, which happens in above loop
-dependencies { firstCompile  'org.apache.commons:commons-collections4:4.0' }
+//sourceSets {
+//	remove main
+//}
+
+task createSourceDirs {
+	eclipseClasspath.dependsOn it
+	doLast {
+		sourceSets.all {
+			java {
+				srcDirs.each {
+					if(!it.path.contains("${File.separator}main${File.separator}")) it.mkdirs()
+				}
+			}
+		}
+	}
+}
+
+// When adding a source set, the configurations <sourceSetName>Compile and
+// <sourceSetName>Runtime, are automatically created.
+// Any configuration can be used to declare dependencies.
+dependencies { woolyHatsCompile  'org.apache.commons:commons-collections4:4.0' }
