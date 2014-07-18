@@ -15,9 +15,9 @@ formatter_settings_version=12
 '''
     }
     doFirst {
-	def xml = new XmlParser().parse formatterXml
-	formatterName = xml.profile[0].attributes().name
-	xml.profile[0].setting.each {
+	def profiles = new XmlParser().parse formatterXml
+	formatterName = profiles.profile[0].attributes().name
+	profiles.profile[0].setting.each {
 	    formatterProperties.put it.attributes().id, it.attributes().value
 	}
 	file('.settings/org.eclipse.jdt.ui.prefs').text = propertiesTemplate.replaceAll '%%name%%', formatterName
