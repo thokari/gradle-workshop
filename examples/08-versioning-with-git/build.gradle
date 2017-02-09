@@ -1,0 +1,5 @@
+apply from: 'gradle/version.gradle'
+
+task showVersion << {
+		println version
+}

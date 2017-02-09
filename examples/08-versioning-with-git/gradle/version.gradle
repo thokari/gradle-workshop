@@ -1,0 +1,36 @@
+version = new Version(project)
+
+public class Version {
+
+    String gitDescribeOutput
+    String major
+    String minor
+    String patch
+    String release
+    String gitCommit
+    String semVer
+
+    public Version(Project project) {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream()
+        project.exec {
+            commandLine 'git', 'describe', '--long'
+            standardOutput = buffer
+        }
+        this.gitDescribeOutput = buffer.toString() - System.getProperty('line.separator')
+        extractParts this.gitDescribeOutput
+    }
+
+    private void extractParts(final String gitDescribeOutput) {
+        def match = gitDescribeOutput =~ /^(\d+)\.(\d+)\.(\d+)-(\d+)-(\w+)$/
+        this.major = match[0][1]
+        this.minor = match[0][2]
+        this.patch = match[0][3]
+        this.release = match[0][4]
+        this.gitCommit = match[0][5]
+        this.semVer = "${major}.${minor}.${patch}"
+    }
+
+    public String toString() {
+        return "${semVer}-${release}"
+    }
+}
