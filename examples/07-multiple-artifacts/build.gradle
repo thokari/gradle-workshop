@@ -10,12 +10,12 @@ repositories { jcenter() }
 //   - logical names (Gradle objects) are camel case
 //   - source directory names are camel case
 ext {
-	outputArchives = [
-		'cats',
-		'spoons',
-		'oranges',
-		'wooly-hats'
-	]
+    outputArchives = [
+        'cats',
+        'spoons',
+        'oranges',
+        'wooly-hats'
+    ]
 }
 
 // Group and version will be shared by all produced artifacts.
@@ -27,72 +27,74 @@ apply from: 'gradle/string-utils.groovy'
 
 // Stay groovy and dry ;)
 outputArchives.each { outputArchive ->
+    String logicalName = outputArchive.camelCase()
 
-	String logicalName = outputArchive.camelCase()
-
-	// Create a source set by calling its name, and declaring it as java source.
-	sourceSets { "${logicalName}" { java } }
-
-	// By default, the eclipse plugin only adds the 'main' source set to the eclipse
-	// classpath, so we need to configure it.
-	eclipse {
-		classpath.plusConfigurations += configurations."${logicalName}Compile"
-	}
-
-	// Add archiving tasks.
-	// These could be anything with type AbstractArchiveTask (e.g. War, Zip).
-	task("${logicalName}Jar", type: Jar) { from configurations."${logicalName}Compile" }
-	task("${logicalName}SourceJar", type: Jar) { from sourceSets."${logicalName}".java }
-
-	// Configure the publishing extension added by the 'maven-publish' plugin.
-	// For every combination of publication and repository, a task with name
-	// publish<publicationName>PublicationTo<repositoryName>Repository is created.
-	// The task 'publish' is a shortcut, depending on each one of them.
-	publishing {
-		publications {
-
-			// Create a publication by calling its name and type.
-			"${logicalName}"(MavenPublication) {
-
-				// Override the artifact id, which defaults to the project name.
-				artifactId = outputArchive.dashSeparated()
-
-				// Publish the artifacts created by the archiving tasks.
-				artifact tasks."${logicalName}Jar"
-				artifact(tasks."${logicalName}SourceJar") { classifier 'source' }
-			}
-		}
-	}
-}
-
-publishing {
-	repositories {
-		maven {
-			name 'LocalFile'
-			url "file:///$buildDir/repo"
-		}
-	}
-}
-
-//sourceSets {
-//	remove main
-//}
-
-task createSourceDirs(group: 'Project Setup') {
-	description = 'Creates all java source directories.'
-	eclipseClasspath.dependsOn it
-	doLast {
-		sourceSets.all {
-			java {
-				srcDirs.each {
-					if(!it.path.contains("${File.separator}main${File.separator}")) it.mkdirs()
-				}
-			}
-		}
-	}
+    // Create a source set by calling its name, and declaring it as java source.
+    sourceSets { "${logicalName}" { java } }
 }
 
 // When adding a source set, the configurations <sourceSetName>Compile and
 // <sourceSetName>Runtime, are automatically created.
 // Any configuration can be used to declare dependencies.
 dependencies { woolyHatsCompile  'org.apache.commons:commons-collections4:4.0' }
+
+outputArchives.each { outputArchive ->
+    String logicalName = outputArchive.camelCase()
+    // By default, the eclipse plugin only adds the 'main' source set to the eclipse
+    // classpath, so we need to configure it.
+    eclipse {
+        classpath.plusConfigurations += configurations."${logicalName}Compile"
+    }
+
+    // Add archiving tasks.
+    // These could be anything with type AbstractArchiveTask (e.g. War, Zip).
+    task("${logicalName}Jar", type: Jar) { from configurations."${logicalName}Compile" }
+    task("${logicalName}SourceJar", type: Jar) { from sourceSets."${logicalName}".java }
+
+    // Configure the publishing extension added by the 'maven-publish' plugin.
+    // For every combination of publication and repository, a task with name
+    // publish<publicationName>PublicationTo<repositoryName>Repository is created.
+    // The task 'publish' is a shortcut, depending on each one of them.
+    publishing {
+        publications {
+
+            // Create a publication by calling its name and type.
+            "${logicalName}"(MavenPublication) {
+
+                // Override the artifact id, which defaults to the project name.
+                artifactId = outputArchive.dashSeparated()
+
+                // Publish the artifacts created by the archiving tasks.
+                artifact tasks."${logicalName}Jar"
+                artifact(tasks."${logicalName}SourceJar") { classifier 'source' }
+            }
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name 'LocalFile'
+            url "file:///$buildDir/repo"
+        }
+    }
+}
+
+//sourceSets {
+//    remove main
+//}
+
+task createSourceDirs(group: 'Project Setup') {
+    description = 'Creates all java source directories.'
+    eclipseClasspath.dependsOn it
+    doLast {
+        sourceSets.all {
+            java {
+                srcDirs.each {
+                    if(!it.path.contains("${File.separator}main${File.separator}")) it.mkdirs()
+                }
+            }
+        }
+    }
+}

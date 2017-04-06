@@ -12,12 +12,16 @@ public class Version {
 
     public Version(Project project) {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream()
-        project.exec {
-            commandLine 'git', 'describe', '--long'
-            standardOutput = buffer
+        try {
+            project.exec {
+                commandLine 'git', 'describe', '--long'
+                standardOutput = buffer
+            }
+            this.gitDescribeOutput = buffer.toString() - System.getProperty('line.separator')
+            extractParts this.gitDescribeOutput
+        } catch (e) {
+            project.logger.error 'Could not get version from Git tag'
         }
-        this.gitDescribeOutput = buffer.toString() - System.getProperty('line.separator')
-        extractParts this.gitDescribeOutput
     }
 
     private void extractParts(final String gitDescribeOutput) {

@@ -1,5 +1,7 @@
 apply from: 'gradle/version.gradle'
 
-task showVersion << {
-		println version
+task showVersion {
+    doLast {
+        println version
+    }
 }

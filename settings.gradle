@@ -2,17 +2,17 @@ def sessions = new File(sessionsDir)
 def examples = new File(examplesDir)
 
 if(sessions.isDirectory()) {
-	sessions.eachDir {
-		if(!it.name.startsWith(".")) {
-			include ":sessions:${it.name}"
-		}
-	}
+    sessions.eachDir {
+        if(!it.name.startsWith('.')) {
+            include ":sessions:${it.name}"
+        }
+    }
 }
 
 if(examples.isDirectory()) {
-	examples.eachDir {
-		if(!it.name.startsWith(".") && !it.name.equals("01-groovy")) {
-			include ":examples:${it.name}"
-		}
-	}
+    examples.eachDir {
+        if(!it.name.startsWith('.') && !it.name.equals('01-groovy')) {
+            include ":examples:${it.name}"
+        }
+    }
 }

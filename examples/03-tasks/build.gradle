@@ -1,7 +1,15 @@
-task someTask << { println "I'm a Default Task!" }
-
-task otherTask {
-   doLast { println "Other task is executing!" }
+task someTask {
+    doLast {
+        println "I'm a Default Task!"
+    }
 }
 
-someTask.doFirst { println "Do this first!" }
+task otherTask {
+    doLast {
+        println "Other task is executing!"
+    }
+}
+
+someTask.doFirst {
+    println "Do this first!"
+}
