@@ -1,0 +1,42 @@
+task doSomething {
+    doLast {
+        println 'Doing something!'
+    }
+}
+
+task prepareSomething {
+    doLast {
+        println 'Me first!'
+    }
+}
+
+task preprepareSomething {
+    doLast {
+        println 'Or me first?'
+    }
+}
+
+someTask.dependsOn prepareSomething
+
+prepareSomething {
+    dependsOn preprepareSomething
+}
+
+task runFirst {
+    doLast {
+        println 'First!'
+    }
+}
+
+task runSecond {
+    doLast {
+        println 'Second!'
+    }
+}
+
+runSeconds.mustRunAfter runFirst
+
+task integrationTest {
+    onlyIf { new Random().nextBoolean() }
+    doLast { println 'Testing...' }
+}

@@ -1,16 +1,23 @@
-task firstTask << {
-	println new Date()
+import java.time.*
+
+task showDate {
+    ext {
+        currentDate = LocalDate.now()
+    }
+    onlyIf { !(currentDate.dayOfWeek in [ DayOfWeek.SATURDAY, DayOfWeek.SUNDAY ]) }
+    doLast {
+        println currentDate
+    }
 }
 
-task secondTask {
-	onlyIf { "${new Date()}".toUpperCase().startsWith("MON") }
-	doLast {
-		println project.name
-	}
+task showName {
+    doLast {
+        println project.name
+    }
 }
 
-firstTask.mustRunAfter secondTask
+showName.mustRunAfter showDate
 
-task thirdTask {
-	dependsOn firstTask, secondTask
+task projectInfo {
+    dependsOn showName, showDate
 }

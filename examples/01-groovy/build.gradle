@@ -1,25 +1,39 @@
+// method definition
 void someMethod(Closure codeBlock) {
    codeBlock.call()
 }
 
-someMethod( { println "Hallo, Welt!" } )
+// method call with brackets
+someMethod( { println 'Hello World!' } )
 
-// Groovy-Zucker
+// method call alternative syntax
 someMethod {
-   println "Hallo, Welt!"
+   println 'Hello World!'
 }
 
-def list = [1, 2, 3]
+println '_' * 20
+
+// list declaration and assignment
+def list = [ 1, 2, 3 ]
+
+// closure with variable definition
 list.each { myVar -> println myVar }
+
+// shorthand syntax using magic variable 'it'
 list.each { println it }
 
-assert list.collect { it + 2 } == [3, 4, 5]
-assert list.findAll { it > 1 } == [2, 3]
-assert list << 4 == [1, 2, 3, 4]
+// more collection methods
+assert list.collect { it + 2 } == [ 3, 4, 5 ]
+assert list.findAll { it > 1 } == [ 2, 3 ]
+assert list << 4 == [ 1, 2, 3, 4 ]
 
-Map person = [firstName: "Hans", lastName: "Moleman", age: 31]
+println '_' * 20
+
+// map declaration and assignment
+Map person = [ firstName: 'Hans', lastName: 'Moleman', age: 31 ]
+
+// string interpolation
 println "${person.lastName.toUpperCase()}, ${person.firstName}"
 person.with {
-   println "Hallo, ${firstName} ${lastName}!"
+    println "Hello, ${firstName} ${lastName}!"
 }
-

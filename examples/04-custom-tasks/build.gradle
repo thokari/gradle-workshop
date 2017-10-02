@@ -1,0 +1,11 @@
+class MyCustomTask extends DefaultTask {
+
+    String someProperty = 'eulav emos'
+
+    @TaskAction
+    void reverseSomeProperty() {
+        println someProperty.reverse()
+    }
+}
+
+task myFirstCustomTask(type: MyCustomTask)

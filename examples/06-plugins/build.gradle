@@ -1,5 +1,0 @@
-apply from: "gradle/chickens.gradle"
-
-chickens {
-	count 6
-}

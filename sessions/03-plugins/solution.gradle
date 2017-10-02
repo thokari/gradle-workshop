@@ -1,4 +1,4 @@
-apply from: "plugins/info.gradle"
+apply from: 'gradle/plugin-info.gradle'
 
-apply plugin: "wrapper"
-apply plugin: "eclipse"
+apply plugin: 'wrapper'
+apply plugin: 'eclipse'

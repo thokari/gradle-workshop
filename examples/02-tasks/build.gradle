@@ -1,0 +1,15 @@
+task someTask {
+    doLast {
+        println "I'm a DefaultTask: ${it.class}"
+    }
+}
+
+task otherTask {
+    doLast {
+        println 'Other task is executing!'
+    }
+}
+
+someTask.doFirst {
+    println 'Do this first!'
+}
