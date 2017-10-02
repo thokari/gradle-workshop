@@ -1,5 +1,19 @@
+println 'Configuration phase'
+
 task firstTask {
     println 'Configuration phase'
+    doFirst {
+        'Execution phase'
+    }
+    doLast {
+        'Execution phase'
+    }
 }
 
-println sourceSets
+project.afterEvaluate {
+    println 'Configuration of this project completing'
+}
+
+gradle.taskGraph.whenReady {
+    println 'Configuration phase completing'
+}

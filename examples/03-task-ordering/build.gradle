@@ -6,17 +6,17 @@ task doSomething {
 
 task prepareSomething {
     doLast {
-        println 'Me first!'
+        println 'Preparing...'
     }
 }
 
 task preprepareSomething {
     doLast {
-        println 'Or me first?'
+        println 'Pre-preparing...'
     }
 }
 
-someTask.dependsOn prepareSomething
+doSomething.dependsOn prepareSomething
 
 prepareSomething {
     dependsOn preprepareSomething
@@ -34,7 +34,7 @@ task runSecond {
     }
 }
 
-runSeconds.mustRunAfter runFirst
+runSecond.mustRunAfter runFirst
 
 task integrationTest {
     onlyIf { new Random().nextBoolean() }

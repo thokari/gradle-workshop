@@ -16,12 +16,17 @@ public class Version {
             project.exec {
                 commandLine 'git', 'describe', '--long'
                 standardOutput = buffer
+                errorOutput = buffer
             }
-            this.gitDescribeOutput = buffer.toString() - System.getProperty('line.separator')
+            this.gitDescribeOutput = stringify buffer
             extractParts this.gitDescribeOutput
         } catch (e) {
-            project.logger.error 'Could not get version from Git tag'
+            project.logger.error "Could not get version from Git tag: '${stringify buffer}'"
         }
+    }
+
+    private def stringify = {
+        it.toString() - System.getProperty('line.separator')
     }
 
     private void extractParts(final String gitDescribeOutput) {
