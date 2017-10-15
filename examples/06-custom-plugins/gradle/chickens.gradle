@@ -1,19 +1,14 @@
-task countChickens {
-    group = 'Chickens'
-    description = 'Counts chickens.'
-    doLast {
-        println "There are ${project.chickens.count} chickens!"
-    }
-}
-
 class Chicken {
+
     def count = 1
+
     public Chicken(project) {
-        project.task('layEggs') {
+
+        project.task('countChickens') {
             group = 'Chickens'
-            description = 'Chickens lay eggs.'
+            description = 'Counts chickens.'
             doLast {
-                count.times { println 'Plopp!' }
+                println "There are ${count} chickens!"
             }
         }
     }

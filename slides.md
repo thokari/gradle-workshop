@@ -6,14 +6,13 @@
 
 - Motivation
 - Evolution of build tools
-- Groovy basics
-- Build lifecycle
+- Language basics
 - Gradle domain model
 - Building Java projects with Gradle
 
 ---
 
-# Motivation
+# Motivation behind Gradle
 
 - flexible, extensible project automation
 - understandable configuration language
@@ -93,24 +92,24 @@
 
 ---
 
-# Basic Gradle concepts
+# Gradle domain model
 
 ----
 
-## Basic Gradle concepts
+## Gradle domain model
 # Tasks
 ## examples / 02-tasks
 ## examples / 03-task-ordering
 
 ----
 
-## Basic Gradle concepts
+## Gradle domain model
 # Tasks
 ## sessions / 01-task-basics
 
 ----
 
-## Basic Gradle concepts
+## Gradle domain model
 # Build Lifecycle
 
 - Initialization phase
@@ -119,5 +118,8 @@
 
 ----
 
+## Gradle domain model
 # Build Lifecycle
 ## examples / 05-build-lifecycle
+
+----

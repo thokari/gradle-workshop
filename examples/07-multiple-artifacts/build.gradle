@@ -81,10 +81,6 @@ publishing {
     }
 }
 
-//sourceSets {
-//    remove main
-//}
-
 task createSourceDirs(group: 'Project Setup') {
     description = 'Creates all java source directories.'
     eclipseClasspath.dependsOn it
