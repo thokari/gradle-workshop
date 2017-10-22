@@ -1,4 +1,7 @@
+plugins {
+    id 'com.dorongold.task-tree' version '1.3'
+}
+
 apply from: 'gradle/plugin-info.gradle'
 
 apply plugin: 'wrapper'
-apply plugin: 'eclipse'

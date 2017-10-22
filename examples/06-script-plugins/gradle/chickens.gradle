@@ -1,6 +1,10 @@
+println "Configuring script plugin for project '${project.name}'"
+
+extensions.create('chickens', Chicken.class, project)
+
 class Chicken {
 
-    def count = 1
+    Integer count = 1
 
     public Chicken(project) {
 
@@ -13,5 +17,3 @@ class Chicken {
         }
     }
 }
-
-extensions.create 'chickens', Chicken, project

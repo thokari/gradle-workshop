@@ -7,8 +7,9 @@
 - Motivation
 - Evolution of build tools
 - Language basics
-- Gradle domain model
+- Gradle basic concepts
 - Building Java projects with Gradle
+- Gradle and IDEs
 
 ---
 
@@ -20,6 +21,16 @@
 - incremental build
 - multi-project builds
 - multi-language projects
+
+---
+
+# Motivation for this workshop
+
+- Gradle used in several projects  
+  (epagesj, ESF, BEYOND services)
+- new colleagues
+- improve project setup and sustainability
+- previous experience
 
 ---
 
@@ -92,34 +103,106 @@
 
 ---
 
-# Gradle domain model
+# Gradle basic concepts
 
 ----
 
-## Gradle domain model
+## Gradle basic concepts
+- Project, Tasks
+- Build Lifecycle
+- Plugins
+
+----
+
+## Gradle basic concepts
 # Tasks
 ## examples / 02-tasks
 ## examples / 03-task-ordering
 
 ----
 
-## Gradle domain model
+## Gradle basic concepts
 # Tasks
 ## sessions / 01-task-basics
 
 ----
 
-## Gradle domain model
+## Gradle basic concepts
 # Build Lifecycle
-
 - Initialization phase
 - Configuration phase
 - Execution phase
 
 ----
 
-## Gradle domain model
+## Gradle basic concepts
 # Build Lifecycle
 ## examples / 05-build-lifecycle
 
 ----
+
+## Gradle basic concepts
+# Plugins
+## examples / 06-script-plugins
+## sessions / 03-plugins
+
+---
+
+# Building Java projects
+
+----
+
+## Building Java projects
+# Documentation
+## The [java](https://docs.gradle.org/current/userguide/java_plugin.html) plugin
+
+----
+
+## Building Java projects
+# Example
+## examples / 07-java-project
+
+----
+
+## Building Java projects
+# Concepts
+- Source Sets
+- Configurations
+- Dependencies
+
+----
+
+## Building Java projects
+# Session
+## sessions / 04-java-project
+
+---
+
+# Gradle and IDEs
+
+----
+
+## Gradle and IDEs
+# The problem:
+### IDEs compile code themselves...
+### How to avoid IDE specific setup?
+
+----
+
+## Gradle and IDEs
+# Documentation
+## The [eclipse](https://docs.gradle.org/current/userguide/eclipse_plugin.html) plugin
+
+----
+
+## Gradle and IDEs
+# Example: Formatter
+## examples / 08-eclipse-formatter
+
+---
+
+# Questions ?
+
+----
+
+# Feedback

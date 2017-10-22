@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.6'
+    testCompile 'junit:junit:4.12'
+}
+
+mainClassName = 'MyMainClass'
+
+task showConfigurations {
+    doLast {
+        project.configurations.each {
+            println it
+        }
+    }
+}

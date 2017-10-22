@@ -1,15 +1,26 @@
-apply plugin: "java"
-apply plugin: "eclipse"
+// There are some issues with this build file...
+//
+// 1. Execute the 'run' task
+//
+// 2. Fix the 'Error: Could not find or load main class AppStart'
+//    (Hint: Examine the directory layout)
+//
+// 3. Add the missing logging library
+//
+// 4. Fix the problem with the serving of the version file
+//
+// 5. Set the version property in the build file and make it show on the version endpoint
+
+
+apply plugin: 'java'
+apply plugin: 'application'
 
 repositories {
-  mavenCentral()
+    jcenter()
 }
 
 dependencies {
-  compile "log4j:log4j:1.2.17"
-  compile "com.google.guava:guava:16.0"
+    compile 'com.sparkjava:spark-core:2.6.0'
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.11'
-}
+mainClassName = 'AppStart'

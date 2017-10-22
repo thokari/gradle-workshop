@@ -1,6 +1,0 @@
-
-// 1) Schreibe eine Task, der alle Textdateien unterhalb von "material/copy/content" sowie alle 
-//    Bilder im Verzeichnis "material/copy/images" nach "build/copy" kopiert
-// 2) Zusätzlich sollen alle *.dat Dateien in "material/copy/content" zu *.data umbenannt werden
-
-// Code ab hier ...

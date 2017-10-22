@@ -1,5 +1,11 @@
-// 1. Have a look into the plugins/info.gradle file
-// 2. Apply it as a plugin
-// 3. Apply the 'wrapper' and 'eclipse' plugins
-// 4. Execute the 'tasks' task
-// 5. Execute the tasks created by the plugins
+// 1. Create a script plugin called 'plugin-info.gradle' in the 'gradle' folder
+//
+// 2. The plugin should create a task 'pluginInfo', which prints out the names of all applied plugins
+//
+// 3. Apply the script plugin you just wrote
+//
+// 4. Apply the bundled plugin 'wrapper'
+//
+// 5. Apply the 'com.dorongold.task-tree' plugin (https://github.com/dorongold/gradle-task-tree)
+//
+// 6. Execute the tasks created by the plugins

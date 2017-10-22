@@ -1,5 +1,9 @@
 // Create three tasks:
+//
 // 1. 'showDate' prints out the current date, but does not execute on weekends
+//
 // 2. 'showName' prints the project name
+//
 // 3. 'projectInfo' has no action, but it makes the other tasks run
+//
 // 4. Task 'showName' must run after task 'showDate'
